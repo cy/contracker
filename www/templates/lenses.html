@@ -1,0 +1,14 @@
+<!--
+  This template loads for the 'tab.about' state (app.js)
+-->
+<ion-view title="Lenses">
+  <ion-content has-header="true" has-tabs="true" padding="true">
+    <ion-list>
+
+      <ion-item ng-repeat="lense in lenses" type="item-text-wrap" href="">
+        <h3>{{lense.side}}</h3>
+        <p>{{lense.schedule}}</p>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>
