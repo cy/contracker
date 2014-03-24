@@ -24,10 +24,11 @@ angular.module('contac', ['ionic', 'contac.services', 'contac.controllers'])
 		}
 	})
 	.state('tab.edit', {
-		url: '/edit',
+		url: '/edit/:id',
 		views: {
-			'edit-tab': {
-				templateUrl: 'templates/edit.html'
+			'lenses-tab': {
+				templateUrl: 'templates/edit.html',
+				controller: 'LenseDetailCtrl'
 			}
 		}
 	})

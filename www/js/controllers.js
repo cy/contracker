@@ -2,6 +2,9 @@ angular.module('contac.controllers', [])
 .controller('LensesIndexCtrl', function($scope, ContacService) {
 	$scope.lenses = ContacService.all();
 	$scope.hello = 'world';
+})
+.controller('LenseDetailCtrl', function($scope, $stateParams, ContacService) {
+	$scope.lense = ContacService.get($stateParams.id);
 });
 
 /*angular.module('starter.controllers', [])*/
