@@ -1,21 +1,25 @@
 angular.module('contac.services', [])
 .factory('ContacService', function() {
 	var lenses = [
-		{id: '0', side: 'left', openedDate: '1288323623006', schedule: '14'},
-		{id: '1', side: 'right', openedDate: '1288323623006', schedule: '14'}
+		{id: '0', side: 'left', openedDate: '1288323623006', schedule: 14},
+		{id: '1', side: 'right', openedDate: '1288323623006', schedule: 14}
 	];
 
 	return {
 		all: function() {
 			return lenses;
 		},
-		add: function(date, whichSide, scheduledDays) {
-			var newLense = { side: whichSide, schedule: scheduledDays }
-			lenses.push(newLense);
+		add: function(lense) {
+			lenses.push(lense);
 		},
 		get: function(id) {
-			console.log("hello");
+			console.log("get!");
 			return lenses[id];
+		},
+		makeNew: function() {
+			console.log("makenew!".concat(new Date()));
+			var newLense = { openedDate: new Date(), side: 'left', schedule: 14};
+			return newLense;
 		}
 	}
 });

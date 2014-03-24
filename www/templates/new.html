@@ -1,40 +1,41 @@
-<!--
-  This template loads for the 'tab.about' state (app.js)
--->
 <ion-view title="Open New">
   <ion-content has-header="true" has-tabs="true" padding="true">	
-		<div class="list">
-			<label class="item item-input item-stacked-label">
-				<span class="input-label">Date</span>
-			</label>
-			<label class="item centered">
-				<button class="button button-positive">Month</button>
-				<button class="button button-positive">Day</button>
-				<button class="button button-positive">Year</button>
-			</label>
-			<label class="item item-input item-stacked-label">
-				<span class="input-label">Side</span>
-			</label>
-			<label class="item item-radio">
-				<input type="radio" name="group">
-				<div class="item-content">Left</div>
-				<i class="radio-icon ion-checkmark"></i>
-			</label>
-			<label class="item item-radio">
-				<input type="radio" name="group">
-				<div class="item-content">Right</div>
-				<i class="radio-icon ion-checkmark"></i>
-			</label>
-			<label class="item item-input item-stacked-label">
-				<span class="input-label">Schedule</span>
-			</label>
-			<label class="item centered">
-				<button class="button button-positive">-</button>
-				<div class="box">14</div>
-				<button class="button button-positive">+</button>
-				<div class="box">days</div>
-			</label>
-			<button class="button button-full button-positive">OK</button>
-		</div>
+		<form ng-submit="saveLense()">
+			<div class="list">
+				<label class="item item-input item-stacked-label">
+					<span class="input-label">Date</span>
+				</label>
+				<label class="item centered">
+					<button class="button button-positive">Month</button>
+					<button class="button button-positive">Day</button>
+					<button class="button button-positive">Year</button>
+				</label>
+				<label class="item item-input item-stacked-label">
+					<span class="input-label">Side</span>
+				</label>
+				<label class="item item-radio">
+					<input type="radio" name="group">
+					<div class="item-content" ng-tap="setSide('left')">Left</div>
+					<i class="radio-icon ion-checkmark"></i>
+				</label>
+				<label class="item item-radio">
+					<input type="radio" name="group">
+					<div class="item-content" ng-tap="setSide('right')">Right</div>
+					<i class="radio-icon ion-checkmark"></i>
+				</label>
+				<label class="item item-input item-stacked-label">
+					<span class="input-label">Schedule</span>
+				</label>
+				<label class="item centered">
+					<button class="button button-positive" ng-click="addDays(-1)">-</button>
+					<div class="box">{{newLense.schedule}}</div>
+					<button class="button button-positive" ng-click="addDays(+1)">+</button>
+					<div class="box">days</div>
+				</label>
+				<button type="submit" class="button button-full button-positive">Done</button>
+			</div>
+		</form>
+		{{newLense.openedDate | date: 'medium'}}
+		{{newLense.side}}
   </ion-content>
 </ion-view>
