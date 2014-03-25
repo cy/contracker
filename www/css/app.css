@@ -7,14 +7,18 @@
   height: 96px;
 }
 
+.button {
+  padding: 1px 10px 0 10px;
+}
+
 .box {
 	color: #444;
   border-color: #b2b2b2;
   position: relative;
   display: inline-block;
   margin: 0;
-  padding: 1px 12px 0 12px;
-  min-width: 52px;
+  padding: 1px 10px 0 10px;
+  min-width: 40px;
   min-height: 47px;
   border-width: 1px;
   border-style: solid;
@@ -28,5 +32,12 @@
 
 .centered {
 	text-align: center;
+}
+
+.thin {
+	padding-left: 0px;
+	padding-right: 0px;
+	min-width: 23px;
+  min-height: 47px;
 }
 

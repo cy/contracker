@@ -28,20 +28,23 @@ angular.module('contac.controllers', [])
   $ionicModal.fromTemplateUrl('modal.html', function(modal) {
     $scope.modal = modal;
   }, {
-    // Use our scope for the scope of the modal to keep it simple
     scope: $scope,
-    // The animation we want to use for the modal entrance
     animation: 'slide-in-up'
   });
-
-	//$scope.months = {'January': 0, 'February': 1, 'March': 2, 'April': 3, 'May': 4, 'June': 5, 'July': 6, 'August': 7, 'September': 8, 'October': 9, 'November': 10, 'December': 11};
 
 	$scope.months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
 	$scope.pickMonth = function(pickedMonth) {
-		console.log("picked " + pickedMonth);
 		$scope.newLense.openedDate.setMonth(pickedMonth);
 		$scope.closeModal();
+	}
+
+	$scope.scrollDate = function(days) {
+		$scope.newLense.openedDate.setDate($scope.newLense.openedDate.getDate()+days);
+	}
+
+	$scope.scrollYear = function(years) {
+		$scope.newLense.openedDate.setFullYear($scope.newLense.openedDate.getFullYear()+years);
 	}
 
   $scope.openModal = function() {
@@ -51,7 +54,6 @@ angular.module('contac.controllers', [])
     $scope.modal.hide();
   };
 
-  //Be sure to cleanup the modal
   $scope.$on('$destroy', function() {
     $scope.modal.remove();
   });

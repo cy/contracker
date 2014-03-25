@@ -5,47 +5,42 @@
 				<label class="item item-input item-stacked-label">
 					<span class="input-label">Date</span>
 				</label>
-				<label class="item centered">
+				<div class="item centered thin">
 					<button ng-click="openModal()" class="button button-positive">{{newLense.openedDate | date: 'MMMM'}}</button>
-					<button class="button button-positive">{{newLense.openedDate | date: 'dd'}}</button>
-					<button class="button button-positive">{{newLense.openedDate | date: 'yyyy'}}</button>
-				</label>
+
+					<button class="button button-positive thin" ng-click="scrollDate(-1)"><i class="ion-arrow-down-b"></i></button>
+					<div class="box">{{newLense.openedDate | date: 'dd'}}</div>
+					<button class="button button-positive thin" ng-click="scrollDate(+1)"><i class="ion-arrow-up-b"></i></button>
+
+					<button class="button button-positive thin" ng-click="scrollYear(-1)"><i class="ion-arrow-down-b"></i></button>
+					<div class="box">{{newLense.openedDate | date: 'yyyy'}}</div>
+					<button class="button button-positive thin" ng-click="scrollYear(+1)"><i class="ion-arrow-up-b"></i></button>
+
+				</div>
 				<label class="item item-input item-stacked-label">
 					<span class="input-label">Side</span>
 				</label>
-				<label class="item item-radio">
-					<input type="radio" name="side" ng-click="setSide('left')">
-					<div class="item-content">Left</div>
-					<i class="radio-icon ion-checkmark"></i>
-				</label>
-				<label class="item item-radio">
-					<input type="radio" name="side" ng-click="setSide('right')">
-					<div class="item-content">Right</div>
+				<label class="item item-radio" ng-repeat="side in ['left', 'right']">
+					<input type="radio" name="side" ng-click="setSide('{{side}}')" ng-checked={{newLense.side===side}}>
+					<div class="item-content">{{side}}</div>
 					<i class="radio-icon ion-checkmark"></i>
 				</label>
 				<label class="item item-input item-stacked-label">
 					<span class="input-label">Schedule</span>
 				</label>
-				<label class="item centered">
-					<button class="button button-positive" ng-click="addDays(-1)">-</button>
+				<div class="item centered">
+					<button class="button button-positive" ng-click="addDays(-1)"><i class="ion-minus-round"></i></button>
 					<div class="box">{{newLense.schedule}}</div>
-					<button class="button button-positive" ng-click="addDays(+1)">+</button>
+					<button class="button button-positive" ng-click="addDays(+1)"><i class="ion-plus-round"></i></button>
 					<div class="box">days</div>
-				</label>
+				</div>
 				<button type="submit" ng-click="saveLense()" class="button button-full button-positive">Done</button>
 			</div>
 		</form>
-		{{newLense.openedDate | date: 'medium'}}
-		{{newLense.side}}
   </ion-content>
 </ion-view>
 
-<!--
-The template can be placed on the current page by using Angular's script template
-loading, or loaded from a separate or external HTML file accessible by URL.
-
-Here we are using the script tag method of defining an Angular template.
--->
+<!-- use a modal because ng-select is really slow on device for some reason -->
 <script id="modal.html" type="text/ng-template">
   <div class="modal">
     <header class="bar bar-header bar-positive">
@@ -55,7 +50,7 @@ Here we are using the script tag method of defining an Angular template.
     <ion-content has-header="true" padding="true">
       <div class="list">
 				<label class="item item-radio" ng-repeat="month in months">
-					<input type="radio" name="side" ng-click="pickMonth('{{$index}}')">
+					<input type="radio" name="side" ng-click="pickMonth('{{$index}}')" ng-checked="{{(newLense.openedDate | date: 'MMMM') === month}}">
 					<div class="item-content">{{month}}</div>
 					<i class="radio-icon ion-checkmark"></i>
 				</label>
