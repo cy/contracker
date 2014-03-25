@@ -2,11 +2,16 @@ angular.module('contac.controllers', [])
 .controller('LensesIndexCtrl', function($scope, ContacService) {
 	$scope.lenses = ContacService.all();
 })
-.controller('LenseDetailCtrl', function($scope, $stateParams, ContacService) {
-	$scope.lense = ContacService.get($stateParams.id);
-})
-.controller('LenseNewCtrl', function($scope, $location, $ionicModal, ContacService) {
-	$scope.newLense = ContacService.makeNew();
+.controller('LenseDetailCtrl', function($scope, $stateParams, $location, $ionicModal, ContacService) {
+	if($stateParams.id === undefined) {
+		$scope.newLense = ContacService.makeNew();
+		$scope.isNew = true;
+	}
+	else {
+		$scope.newLense = ContacService.get($stateParams.id);
+		$scope.isNew = false;
+	}
+
 	$scope.addDays = function(days) {
 		$scope.newLense.schedule += days;
 	}
@@ -20,7 +25,8 @@ angular.module('contac.controllers', [])
 		}
 	}
 	$scope.saveLense = function() {
-		ContacService.add($scope.newLense);
+		if($scope.isNew)
+			ContacService.add($scope.newLense);
 		$location.path("/tab/lenses/");
 	}
 

@@ -1,8 +1,6 @@
 angular.module('contac.services', [])
 .factory('ContacService', function() {
 	var lenses = [
-		{id: '0', side: 'left', openedDate: '1288323623006', schedule: 14},
-		{id: '1', side: 'right', openedDate: '1288323623006', schedule: 14}
 	];
 
 	return {
@@ -16,7 +14,14 @@ angular.module('contac.services', [])
 			return lenses[id];
 		},
 		makeNew: function() {
-			var newLense = { openedDate: new Date(), side: 'left', schedule: 14};
+			console.log("make new!");
+			var maxId = -1;
+			for (var key in lenses) {
+				var obj = lenses[key];
+				if(maxId < obj['id'])
+					maxId = obj['id'];
+			}
+			var newLense = { id: maxId + 1, openedDate: new Date(), side: 'left', schedule: 14};
 			return newLense;
 		}
 	}
