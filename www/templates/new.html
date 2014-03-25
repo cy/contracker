@@ -6,9 +6,9 @@
 					<span class="input-label">Date</span>
 				</label>
 				<label class="item centered">
-					<button class="button button-positive">Month</button>
-					<button class="button button-positive">Day</button>
-					<button class="button button-positive">Year</button>
+					<button ng-click="openModal()" class="button button-positive">{{newLense.openedDate | date: 'MMMM'}}</button>
+					<button class="button button-positive">{{newLense.openedDate | date: 'dd'}}</button>
+					<button class="button button-positive">{{newLense.openedDate | date: 'yyyy'}}</button>
 				</label>
 				<label class="item item-input item-stacked-label">
 					<span class="input-label">Side</span>
@@ -39,3 +39,29 @@
 		{{newLense.side}}
   </ion-content>
 </ion-view>
+
+<!--
+The template can be placed on the current page by using Angular's script template
+loading, or loaded from a separate or external HTML file accessible by URL.
+
+Here we are using the script tag method of defining an Angular template.
+-->
+<script id="modal.html" type="text/ng-template">
+  <div class="modal">
+    <header class="bar bar-header bar-positive">
+      <h1 class="title">Month</h1>
+      <button class="button button-clear button-positive" ng-click="closeModal()">Cancel</button>
+    </header>
+    <ion-content has-header="true" padding="true">
+      <div class="list">
+				<label class="item item-radio" ng-repeat="month in months">
+					<input type="radio" name="side" ng-click="pickMonth('{{$index}}')">
+					<div class="item-content">{{month}}</div>
+					<i class="radio-icon ion-checkmark"></i>
+				</label>
+				<button class="button button-full button-positive" ng-click="closeModal()">Cancel</button>
+      </div>
+    </ion-content>
+  </div>
+</script>
+
