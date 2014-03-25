@@ -5,7 +5,7 @@ angular.module('contac.controllers', [])
 .controller('LenseDetailCtrl', function($scope, $stateParams, ContacService) {
 	$scope.lense = ContacService.get($stateParams.id);
 })
-.controller('LenseNewCtrl', function($scope, ContacService) {
+.controller('LenseNewCtrl', function($scope, $location, ContacService) {
 	$scope.newLense = ContacService.makeNew();
 	$scope.addDays = function(days) {
 		$scope.newLense.schedule += days;
@@ -20,8 +20,8 @@ angular.module('contac.controllers', [])
 		}
 	}
 	$scope.saveLense = function() {
-		console.log($scope.newLense);
 		ContacService.add($scope.newLense);
+		$location.path("/tab/lenses/");
 	}
 });
 
