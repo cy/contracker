@@ -1,6 +1,7 @@
 angular.module('contac.services', [])
 .factory('ContacService', function() {
 	var lenses = [
+		//{id: 0, openedDate: '1288323623006', side: 'left', schedule: 14, daysSkipped: 0}
 	];
 
 	return {
@@ -11,7 +12,18 @@ angular.module('contac.services', [])
 			lenses.push(lense);
 		},
 		get: function(id) {
-			return lenses[id];
+			//return lenses[id];
+			for(var i = 0; i < lenses.length; i++) {
+				if(lenses[i].id == id) {
+					return lenses[i];
+				}
+			}
+			/*lenses.forEach(function(lense) {*/
+				//console.log("lense.id " + lense.id + " id " + id);
+				//if(lense.id == id) {
+					//return lense;
+				//}
+			/*});*/
 		},
 		makeNew: function() {
 			console.log("make new!");
@@ -21,8 +33,16 @@ angular.module('contac.services', [])
 				if(maxId < obj['id'])
 					maxId = obj['id'];
 			}
-			var newLense = { id: maxId + 1, openedDate: new Date(), side: 'left', schedule: 14};
+			var newLense = { id: maxId + 1, openedDate: new Date(), side: 'left', schedule: 14, daysSkipped: 0};
 			return newLense;
+		},
+		skipDays: function(id, numDays) {
+			lenses.forEach(function(lense) {
+				if(lense.id === id) {
+					lense.daysSkipped += numDays;
+					return;
+				}
+			});
 		}
 	}
 });

@@ -1,6 +1,31 @@
 angular.module('contac.controllers', [])
-.controller('LensesIndexCtrl', function($scope, ContacService) {
+.controller('LensesIndexCtrl', function($scope, $ionicModal, ContacService) {
 	$scope.lenses = ContacService.all();
+  $ionicModal.fromTemplateUrl('skip.html', {
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function(modal) {
+    $scope.modal = modal;
+  });
+  $scope.openModal = function(clickedId) {
+		$scope.clickedId = clickedId;
+		$scope.daysToSkip = 1;
+    $scope.modal.show();
+  };
+	$scope.scrollDaysToSkip = function(numDays) {
+		$scope.daysToSkip += numDays;
+	};
+  $scope.closeModal = function() {
+    $scope.modal.hide();
+  };
+  //Cleanup the modal when we're done with it!
+  $scope.$on('$destroy', function() {
+    $scope.modal.remove();
+  });
+	$scope.handleSkipOK	= function() {
+		ContacService.skipDays($scope.clickedId, $scope.daysToSkip);
+		$scope.closeModal();
+	};
 })
 .controller('LenseDetailCtrl', function($scope, $stateParams, $location, $ionicModal, ContacService) {
 	if($stateParams.id === undefined) {
