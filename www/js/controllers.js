@@ -1,6 +1,9 @@
 angular.module('contac.controllers', [])
 .controller('LensesIndexCtrl', function($scope, $ionicModal, ContacService) {
 	$scope.lenses = ContacService.all();
+	$scope.getExpiryDate = function(id) {
+		return ContacService.getExpiryDate(id);
+	};
   $ionicModal.fromTemplateUrl('skip.html', {
     scope: $scope,
     animation: 'slide-in-up'

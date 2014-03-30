@@ -1,3 +1,10 @@
+Date.prototype.addDays = function(days)
+{
+    var dat = new Date(this.valueOf());
+    dat.setDate(dat.getDate() + days);
+    return dat;
+}
+
 angular.module('contac.services', [])
 .factory('ContacService', function() {
 	var lenses = [
@@ -12,18 +19,11 @@ angular.module('contac.services', [])
 			lenses.push(lense);
 		},
 		get: function(id) {
-			//return lenses[id];
 			for(var i = 0; i < lenses.length; i++) {
 				if(lenses[i].id == id) {
 					return lenses[i];
 				}
 			}
-			/*lenses.forEach(function(lense) {*/
-				//console.log("lense.id " + lense.id + " id " + id);
-				//if(lense.id == id) {
-					//return lense;
-				//}
-			/*});*/
 		},
 		makeNew: function() {
 			console.log("make new!");
@@ -43,6 +43,10 @@ angular.module('contac.services', [])
 					return;
 				}
 			});
+		},
+		getExpiryDate: function(id) {
+			var lense = this.get(id);
+			return lense.openedDate.addDays(lense.daysSkipped + lense.schedule);
 		}
 	}
 });
