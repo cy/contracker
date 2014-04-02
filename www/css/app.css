@@ -41,3 +41,28 @@
   min-height: 47px;
 }
 
+.borderless {
+  border-width: 0;
+	padding: 10px;
+	margin: 2px;
+}
+
+.bordered {
+  border-width: 1px;
+  border-style: solid;
+  border-color: #ddd;
+	padding: 5px;
+}
+
+.item-half {
+	max-width: 50%;
+	height: 250px;
+}
+
+.item-right {
+	float: right;
+}
+
+.item-left {
+	float: left;
+}

@@ -1,28 +1,33 @@
 <ion-view title="Lenses">
 	<ion-content has-header="true" has-tabs="true" padding="true">
 	<div class="list">
-		<div ng-repeat="lense in lenses" class="item">
-			<!--<i class="icon ion-email"></i>-->
-			<h3>{{lense.side}}</h3>
-			<p>{{lense.schedule}}</p>
-			<p>days skipped {{lense.daysSkipped}}</p>
-			<p>{{lense.openedDate | date: 'medium'}}</p>
-			<p>Expires: {{getExpiryDate(lense.id) | date: 'medium'}}</p>
-			<button class="button button-positive" ng-click="openModal({{lense.id}})">
-				Skip Day
-			</button>
-			<a class="button button-positive" href="#/tab/lense/{{lense.id}}">
-				Edit
-			</a>
+		<div ng-repeat="pair in paired">
+			<div ng-repeat="lense in pair" class="item item-{{lense.side}} item-half borderless">
+				<div ng-if="lense.id !== undefined" class="bordered">
+					<p>id: {{lense.id}}</p>
+					<p>{{lense.side}}</p>
+					<p>{{lense.schedule}}</p>
+					<p>days skipped {{lense.daysSkipped}}</p>
+					<p>{{lense.openedDate | date: 'medium'}}</p>
+					<p>Expires: {{getExpiryDate(lense.id) | date: 'medium'}}</p>
+					<button class="button button-positive" ng-click="openModal({{lense.id}})">
+						Skip Day
+					</button>
+					<a class="button button-positive" href="#/tab/lense/{{lense.id}}">
+						Edit
+					</a>
+				</div>
+			</div>
 		</div>
+		<div ng-if="(lense.side === right) || $last" style="clear:both">&nbsp;</div>
+		<div ng-repeat-end></div>
 	</div>
 	</ion-content>
 </ion-view>
-
 <!-- skip day modal -->
 <script id="skip.html" type="text/ng-template">
   <div class="modal">
-    <ion-header-bar title="Skip"></ion-header-bar>
+    <ion-header-bar class="bar-positive" title="Skip"></ion-header-bar>
     <ion-content has-header="true" padding="true">
 			<div class="card">
 				<div class="item item-text-wrap centered">

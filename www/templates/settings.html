@@ -13,6 +13,11 @@
 				</div>
 			</label>
 		</div>
+		<div class="item">
+			<button class="button button-positive thin" ng-click="scrollDate(-1)"><i class="ion-arrow-down-b"></i></button>
+			<div class="box">{{newLense.openedDate | date: 'dd'}}</div>
+			<button class="button button-positive thin" ng-click="scrollDate(+1)"><i class="ion-arrow-up-b"></i></button>
+		</div>
 	</div>
 
 		<p>

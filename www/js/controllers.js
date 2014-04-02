@@ -1,6 +1,11 @@
 angular.module('contac.controllers', [])
 .controller('LensesIndexCtrl', function($scope, $ionicModal, ContacService) {
 	$scope.lenses = ContacService.all();
+	$scope.paired = ContacService.getPaired();
+
+	$scope.rightLenses = ContacService.getRights();
+	$scope.leftLenses = ContacService.getLefts();
+
 	$scope.getExpiryDate = function(id) {
 		return ContacService.getExpiryDate(id);
 	};
