@@ -94,5 +94,16 @@ angular.module('contac.controllers', [])
     $scope.modal.remove();
   });
 
+})
+.controller('SettingsCtrl', function($scope, ContacService) {
+	$scope.listAllScheduled = function() {
+		window.plugin.notification.local.getScheduledIds( function (scheduledIds) {
+				 console.log('a Scheduled IDs: ' + scheduledIds.join(' ,'));
+		});
+	}
+
+	$scope.cancelAllNotifications = function() {
+		window.plugin.notification.local.cancelAll();
+	}
 });
 

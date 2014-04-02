@@ -1,8 +1,3 @@
-ionic.Platform.ready(function(){
-	  console.log("Cordova is ready, let's do this!");
-		window.plugin.notification.local.add({ message: 'Great app!' });
-});
-
 angular.module('contac', ['ionic', 'contac.services', 'contac.controllers'])
 .config(function($stateProvider, $urlRouterProvider) {
 	$stateProvider
@@ -42,7 +37,8 @@ angular.module('contac', ['ionic', 'contac.services', 'contac.controllers'])
 		url: '/settings',
 		views: {
 			'settings-tab' : {
-				templateUrl: 'templates/settings.html'
+				templateUrl: 'templates/settings.html',
+				controller: 'SettingsCtrl'
 			}
 		}
 	});

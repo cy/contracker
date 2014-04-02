@@ -1,8 +1,10 @@
-<!--
-  This template loads for the 'tab.about' state (app.js)
--->
 <ion-view title="Settings">
   <ion-content has-header="true" has-tabs="true" padding="true">
-		<p>This is placeholder for the settings page</p>
+		<button class="button button-positive" ng-click="listAllScheduled()">
+			List all notifcations
+		</button>
+		<button class="button button-positive" ng-click="cancelAllNotifications()">
+			Cancel all Notifications
+		</button>
   </ion-content>
 </ion-view>
