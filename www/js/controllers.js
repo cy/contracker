@@ -96,6 +96,19 @@ angular.module('contac.controllers', [])
 
 })
 .controller('SettingsCtrl', function($scope, ContacService) {
+  $scope.pushNotificationChange = function() {
+    console.log('Push Notification Change', $scope.pushNotification.checked);
+		if($scope.pushNotification.checked) {
+			var lenses = ContacService.all();
+			for(var i = 0; i < lenses.length; i++) {
+				ContacService.scheduleNotification(lenses[i].id);
+			}
+		} else {
+			window.plugin.notification.local.cancelAll();
+		}
+  };
+  $scope.pushNotification = { checked: true };
+
 	$scope.listAllScheduled = function() {
 		window.plugin.notification.local.getScheduledIds( function (scheduledIds) {
 				 console.log('a Scheduled IDs: ' + scheduledIds.join(' ,'));
@@ -105,5 +118,6 @@ angular.module('contac.controllers', [])
 	$scope.cancelAllNotifications = function() {
 		window.plugin.notification.local.cancelAll();
 	}
+
 });
 
