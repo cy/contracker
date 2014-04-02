@@ -27,6 +27,7 @@ angular.module('contac.controllers', [])
   });
 	$scope.handleSkipOK	= function() {
 		ContacService.skipDays($scope.clickedId, $scope.daysToSkip);
+		ContacService.scheduleNotification($scope.clickedId);
 		$scope.closeModal();
 	};
 })
@@ -55,6 +56,7 @@ angular.module('contac.controllers', [])
 	$scope.saveLense = function() {
 		if($scope.isNew)
 			ContacService.add($scope.newLense);
+		ContacService.scheduleNotification($scope.newLense.id);
 		$location.path("/tab/lenses/");
 	}
 
