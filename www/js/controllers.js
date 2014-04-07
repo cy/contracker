@@ -100,10 +100,12 @@ angular.module('contac.controllers', [])
   });
 
 })
-.controller('SettingsCtrl', function($scope, ContacService) {
+.controller('SettingsCtrl', function($scope, ContacService, SettingsService) {
+	$scope.settings = SettingsService.get();
   $scope.pushNotificationChange = function() {
-    console.log('Push Notification Change', $scope.pushNotification.checked);
-		if($scope.pushNotification.checked) {
+    console.log('Push Notification Change', $scope.settings.pushNotification);
+		SettingsService.save();
+		if($scope.settings.pushNotification) {
 			var lenses = ContacService.all();
 			for(var i = 0; i < lenses.length; i++) {
 				ContacService.scheduleNotification(lenses[i].id);
@@ -112,7 +114,6 @@ angular.module('contac.controllers', [])
 			window.plugin.notification.local.cancelAll();
 		}
   };
-  $scope.pushNotification = { checked: true };
 
 	$scope.listAllScheduled = function() {
 		window.plugin.notification.local.getScheduledIds( function (scheduledIds) {

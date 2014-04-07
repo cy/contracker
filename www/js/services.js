@@ -9,9 +9,16 @@ var servicesModule = angular.module('contac.services', []);
 servicesModule.constant('notificationPrefix', 'com.christine-yu.contac.lense.');
 servicesModule
 .factory('ContacService', function(notificationPrefix) {
-	var lenses = [
-		//{id: 0, openedDate: '1288323623006', side: 'left', schedule: 14, daysSkipped: 0}
-	];
+	var lensesString = window.localStorage['lenses'];
+	var lenses = [];
+	if(lensesString) {
+		lenses = angular.fromJson(lensesString);	
+		for(var i = 0; i < lenses.length; i++) {
+			lenses[i]['openedDate'] = new Date(lenses[i]['openedDate']);
+		}
+	}
+	//sample lense object
+	//{id: 0, openedDate: '1288323623006', side: 'left', schedule: 14, daysSkipped: 0}
 
 	return {
 		all: function() {
@@ -104,6 +111,8 @@ servicesModule
 		},
 		add: function(lense) {
 			lenses.push(lense);
+			window.localStorage['lenses'] = angular.toJson(lenses);
+			console.log("hi from add, lenses.length " + lenses.length);
 		},
 		get: function(id) {
 			for(var i = 0; i < lenses.length; i++) {
@@ -133,15 +142,10 @@ servicesModule
 		},
 		getExpiryDate: function(id) {
 			var lense = this.get(id);
+			console.log("getExpiryDate id " + id + "lense.daysSkipped " + lense.daysSkipped + " lense.schedule" + lense.schedule);
 			return lense.openedDate.addDays(lense.daysSkipped + lense.schedule);
 		},
 		scheduleNotification: function(id) {
-			console.log("notification id is " + notificationPrefix + id);
-
-			window.plugin.notification.local.getScheduledIds( function (scheduledIds) {
-				 console.log('a Scheduled IDs: ' + scheduledIds.join(' ,'));
-			});
-
 			var lense = this.get(id);
 			var notificationId = notificationPrefix + id;
 			window.plugin.notification.local.getScheduledIds( function (scheduledIds) {
@@ -152,23 +156,33 @@ servicesModule
 					}
 				}	
 			});
-
-			window.plugin.notification.local.getScheduledIds( function (scheduledIds) {
-				 console.log('b Scheduled IDs: ' + scheduledIds.join(' ,'));
-			});
-
 			window.plugin.notification.local.add({
 				id : notificationId,
 				date: this.getExpiryDate(id),
 				message: "Time to change your contact lense!",
 				title: "Contac"
 			});	
-
-			window.plugin.notification.local.getScheduledIds( function (scheduledIds) {
-				 console.log('c Scheduled IDs: ' + scheduledIds.join(' ,'));
-			});
-
 		}
 	}
 });
+servicesModule
+.factory('SettingsService', function() {
+	var settingsString = window.localStorage['settings'];
+	var settings = [];
+	if(settingsString) {
+		settings = angular.fromJson(settingsString);	
+	} else {
+		settings = {pushNotification: true, openedDate: '1288323623006'};
+	}
+	//sample settings object
+	//{pushNotification: true, openedDate: '1288323623006'}
 
+	return {
+		get: function() {
+			return settings;
+		},
+		save: function() {
+			window.localStorage['settings'] = angular.toJson(settings);
+		}
+	}
+});
