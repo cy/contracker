@@ -102,9 +102,12 @@ angular.module('contac.controllers', [])
 })
 .controller('SettingsCtrl', function($scope, ContacService, SettingsService) {
 	$scope.settings = SettingsService.get();
+	$scope.notificationTime = SettingsService.getNotificationTime();
+	$scope.onOff = ($scope.settings.pushNotification) ? "On" : "Off";
   $scope.pushNotificationChange = function() {
     console.log('Push Notification Change', $scope.settings.pushNotification);
 		SettingsService.save();
+		$scope.$apply();
 		if($scope.settings.pushNotification) {
 			var lenses = ContacService.all();
 			for(var i = 0; i < lenses.length; i++) {
@@ -114,13 +117,23 @@ angular.module('contac.controllers', [])
 			window.plugin.notification.local.cancelAll();
 		}
   };
-
+	$scope.switchAmPm = function() {
+		$scope.notificationTime.setHours($scope.notificationTime.getHours()+12);
+		SettingsService.save();
+	};
+	$scope.scrollHour = function(hours) {
+		$scope.notificationTime.setHours($scope.notificationTime.getHours()+hours);
+		SettingsService.save();
+	};
+	$scope.scrollMin = function(min) {
+		$scope.notificationTime.setMinutes($scope.notificationTime.getMinutes()+min);
+		SettingsService.save();
+	};
 	$scope.listAllScheduled = function() {
 		window.plugin.notification.local.getScheduledIds( function (scheduledIds) {
 				 console.log('a Scheduled IDs: ' + scheduledIds.join(' ,'));
 		});
 	}
-
 	$scope.cancelAllNotifications = function() {
 		window.plugin.notification.local.cancelAll();
 	}

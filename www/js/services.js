@@ -4,6 +4,11 @@ Date.prototype.addDays = function(days)
     dat.setDate(dat.getDate() + days);
     return dat;
 }
+Date.prototype.addHours= function(hours){
+		console.log("Date.prototype.addHours");
+		this.setHours(this.getHours()+hours);
+		return this;
+}
 
 var servicesModule = angular.module('contac.services', []);
 servicesModule.constant('notificationPrefix', 'com.christine-yu.contac.lense.');
@@ -130,6 +135,7 @@ servicesModule
 					maxId = obj['id'];
 			}
 			var newLense = { id: maxId + 1, openedDate: new Date(), side: 'left', schedule: 14, daysSkipped: 0};
+			console.log(newLense.openedDate.valueOf());
 			return newLense;
 		},
 		skipDays: function(id, numDays) {
@@ -142,7 +148,7 @@ servicesModule
 		},
 		getExpiryDate: function(id) {
 			var lense = this.get(id);
-			console.log("getExpiryDate id " + id + "lense.daysSkipped " + lense.daysSkipped + " lense.schedule" + lense.schedule);
+			//console.log("getExpiryDate id " + id + "lense.daysSkipped " + lense.daysSkipped + " lense.schedule" + lense.schedule);
 			return lense.openedDate.addDays(lense.daysSkipped + lense.schedule);
 		},
 		scheduleNotification: function(id) {
@@ -171,11 +177,10 @@ servicesModule
 	var settings = [];
 	if(settingsString) {
 		settings = angular.fromJson(settingsString);	
+		settings['notificationTime'] = new Date(settings['notificationTime']);
 	} else {
-		settings = {pushNotification: true, openedDate: '1288323623006'};
+		settings = {pushNotification: true, notificationTime: new Date(1397143645411)};
 	}
-	//sample settings object
-	//{pushNotification: true, openedDate: '1288323623006'}
 
 	return {
 		get: function() {
@@ -183,6 +188,9 @@ servicesModule
 		},
 		save: function() {
 			window.localStorage['settings'] = angular.toJson(settings);
+		},
+		getNotificationTime: function() {
+			return settings['notificationTime'];
 		}
 	}
 });
