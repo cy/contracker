@@ -10,10 +10,10 @@ Date.prototype.addHours= function(hours){
 		return this;
 }
 
-var servicesModule = angular.module('contac.services', []);
-servicesModule.constant('notificationPrefix', 'com.christine-yu.contac.lense.');
+var servicesModule = angular.module('contracker.services', []);
+servicesModule.constant('notificationPrefix', 'com.christine-yu.contracker.lense.');
 servicesModule
-.factory('ContacService', function(notificationPrefix) {
+.factory('ContrackerService', function(notificationPrefix) {
 	var lensesString = window.localStorage['lenses'];
 	var lenses = [];
 	if(lensesString) {
@@ -166,7 +166,7 @@ servicesModule
 				id : notificationId,
 				date: this.getExpiryDate(id),
 				message: "Time to change your contact lense!",
-				title: "Contac"
+				title: "Contracker"
 			});	
 		}
 	}

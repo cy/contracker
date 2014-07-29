@@ -1,13 +1,13 @@
-angular.module('contac.controllers', [])
-.controller('LensesIndexCtrl', function($scope, $ionicModal, ContacService) {
-	$scope.lenses = ContacService.all();
-	$scope.paired = ContacService.getPaired();
+angular.module('contracker.controllers', [])
+.controller('LensesIndexCtrl', function($scope, $ionicModal, ContrackerService) {
+	$scope.lenses = ContrackerService.all();
+	$scope.paired = ContrackerService.getPaired();
 
-	$scope.rightLenses = ContacService.getRights();
-	$scope.leftLenses = ContacService.getLefts();
+	$scope.rightLenses = ContrackerService.getRights();
+	$scope.leftLenses = ContrackerService.getLefts();
 
 	$scope.getExpiryDate = function(id) {
-		return ContacService.getExpiryDate(id);
+		return ContrackerService.getExpiryDate(id);
 	};
   $ionicModal.fromTemplateUrl('skip.html', {
     scope: $scope,
@@ -31,18 +31,18 @@ angular.module('contac.controllers', [])
     $scope.modal.remove();
   });
 	$scope.handleSkipOK	= function() {
-		ContacService.skipDays($scope.clickedId, $scope.daysToSkip);
-		ContacService.scheduleNotification($scope.clickedId);
+		ContrackerService.skipDays($scope.clickedId, $scope.daysToSkip);
+		ContrackerService.scheduleNotification($scope.clickedId);
 		$scope.closeModal();
 	};
 })
-.controller('LenseDetailCtrl', function($scope, $stateParams, $location, $ionicModal, ContacService) {
+.controller('LenseDetailCtrl', function($scope, $stateParams, $location, $ionicModal, ContrackerService) {
 	if($stateParams.id === undefined) {
-		$scope.newLense = ContacService.makeNew();
+		$scope.newLense = ContrackerService.makeNew();
 		$scope.isNew = true;
 	}
 	else {
-		$scope.newLense = ContacService.get($stateParams.id);
+		$scope.newLense = ContrackerService.get($stateParams.id);
 		$scope.isNew = false;
 	}
 
@@ -60,8 +60,8 @@ angular.module('contac.controllers', [])
 	}
 	$scope.saveLense = function() {
 		if($scope.isNew)
-			ContacService.add($scope.newLense);
-		ContacService.scheduleNotification($scope.newLense.id);
+			ContrackerService.add($scope.newLense);
+		ContrackerService.scheduleNotification($scope.newLense.id);
 		$location.path("/tab/lenses/");
 	}
 
@@ -100,7 +100,7 @@ angular.module('contac.controllers', [])
   });
 
 })
-.controller('SettingsCtrl', function($scope, ContacService, SettingsService) {
+.controller('SettingsCtrl', function($scope, ContrackerService, SettingsService) {
 	$scope.settings = SettingsService.get();
 	$scope.notificationTime = SettingsService.getNotificationTime();
 	$scope.onOff = ($scope.settings.pushNotification) ? "On" : "Off";
@@ -109,9 +109,9 @@ angular.module('contac.controllers', [])
 		SettingsService.save();
 		$scope.$apply();
 		if($scope.settings.pushNotification) {
-			var lenses = ContacService.all();
+			var lenses = ContrackerService.all();
 			for(var i = 0; i < lenses.length; i++) {
-				ContacService.scheduleNotification(lenses[i].id);
+				ContrackerService.scheduleNotification(lenses[i].id);
 			}
 		} else {
 			window.plugin.notification.local.cancelAll();

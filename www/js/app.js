@@ -1,4 +1,4 @@
-angular.module('contac', ['ionic', 'contac.services', 'contac.controllers'])
+angular.module('contracker', ['ionic', 'contracker.services', 'contracker.controllers'])
 .config(function($stateProvider, $urlRouterProvider) {
 	$stateProvider
 	.state('tab', {

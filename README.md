@@ -1,6 +1,5 @@
-ionic-angular-cordova-seed
+Contracker
 ==========================
 
-The perfect starting point for an Ionic project.
+Simple mobile app for tracking contact lense expiry date. Built on Ionic and AngularJS. WIP.
 
-- [Ionic Tutorials](http://ionicframework.com/tutorials/)
