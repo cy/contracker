@@ -164,7 +164,7 @@ servicesModule
 			});
 			window.plugin.notification.local.add({
 				id : notificationId,
-				date: this.getExpiryDate(id),
+				//date: this.getExpiryDate(id),
 				message: "Time to change your contact lense!",
 				title: "Contracker"
 			});	
